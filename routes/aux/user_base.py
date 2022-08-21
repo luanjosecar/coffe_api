@@ -1,5 +1,5 @@
 import jwt
-from .mongo_reader import * 
+from ..database.mongo_reader import * 
 
 def verify_user(username:str, password:str):
     user = find_user(username)

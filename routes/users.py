@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from .aux.dependencies import verify_token
-from .bodys.user import UserBody
+from .objects.user import UserBody
 from .aux.user_base import *
 
 router = APIRouter(

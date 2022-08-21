@@ -1,7 +1,18 @@
-
+from ..database.postgres_reader import *
 from datetime import datetime
-from db_sender import send_request , get_request
 from response import *
+
+
+def get_readings(user_id:str):
+    query = f"select read_id, read_imp, read_date, read_status from readings where user_id = '{user_id}'"
+    resp = get_request(query)
+    base_list = []
+    for rid, rimp, rdate, rstate in resp:
+        resp_dict = {"read_id" : rid, "read_imp":rimp, "read_date":rdate.strftime('%y-%m-%d')}
+        base_list.append(resp_dict)
+    return base_list
+
+
 
 # Definir banco de dados no qual ela seram colocadas
 def upload_img(image):
@@ -37,10 +48,8 @@ def insert_reading_location(reading_id:str, longitude:str, latitude:str):
     send_request(query)
 
 #retorna as imagens com base no resultado
-def return_imgs(reading_id:str):
-    query = f"""
-        SELECT * FROM images_results 
-    """
+def return_imgs_results(reading_id:str):
+    query = f"SELECT * FROM images_results where reading_id = '{reading_id}'"
     get_request(query)
 
 
