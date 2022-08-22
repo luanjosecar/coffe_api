@@ -1,6 +1,6 @@
 from ..database.postgres_reader import *
 from datetime import datetime
-from response import *
+from .responses import *
 
 
 def get_readings(user_id:str):
@@ -49,7 +49,24 @@ def insert_reading_location(reading_id:str, longitude:str, latitude:str):
 
 #retorna as imagens com base no resultado
 def return_imgs_results(reading_id:str):
-    query = f"SELECT * FROM images_results where reading_id = '{reading_id}'"
-    get_request(query)
+    query = f"SELECT * FROM reading_result where read_id = '{reading_id}'"
+    results = get_request(query)
+    res_list = []
+    for rid, rloc, rresult in results :
+        res_dict = {"image" : rloc, "result":rresult}
+        res_list.append(res_dict)
+    return res_list
 
 
+def return_imgs(reading_id:str):
+    '''
+        Retorna as imagens para a leitura do sistema
+    '''
+    query = f"SELECT img_location FROM reading_imgs where read_id = '{reading_id}'"
+    print(query)
+    loc = get_request(query)
+    normalize = []
+    for imgs, in loc:
+        normalize.append(imgs)
+    print(normalize)
+    return normalize

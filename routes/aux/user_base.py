@@ -5,7 +5,7 @@ def verify_user(username:str, password:str):
     user = find_user(username)
     if(user):
         if(user['password'] == password):
-            encoded_jwt = jwt.encode({"username": username}, "secret", algorithm="HS256")
+            encoded_jwt = jwt.encode({"user_id": username}, "secret", algorithm="HS256")
             return {"Message": "User Found", "Token": "Bearer "+str(encoded_jwt)}
         else:
             return {"Message": "Wrong Password"}

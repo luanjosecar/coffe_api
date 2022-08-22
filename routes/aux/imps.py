@@ -14,5 +14,6 @@ def get_implementations():
     imp_list = []
     for iid ,idname, istatus,iimgs, itype in resp:
         imp_dict = {"imp_id": iid, "imp_name" : idname, "images" : iimgs, "type":itype }
-        imp_list = imp_list.append(imp_dict)
+        imp_list.append(imp_dict)
+    print(imp_list)
     return imp_list

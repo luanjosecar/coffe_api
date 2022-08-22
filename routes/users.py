@@ -15,13 +15,13 @@ router = APIRouter(
 async def root():
     return {"message": "Server OK"}
 
-@router.post('login')
+@router.post('/login')
 async def user_login(body: UserBody):
     resp = verify_user(body.user, body.password)
     return resp
 
-@router.post('create')
-async def create_user(body:UserBody):
+@router.post('/create')
+async def create_user_base(body:UserBody):
     resp = create_user(body.user, body.password)
     return resp
 
