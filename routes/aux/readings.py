@@ -50,7 +50,7 @@ def insert_imgs(reading_id: str, image_dir:str):
 #Insere local da leitura caso exista
 def insert_reading_location(reading_id:str, longitude:str, latitude:str):
     query = f"""
-        INSERT INTO reading_location (reading_id,longitude, latitude)
+        INSERT INTO reading_location (read_id,longitude, latitude)
         VALUES ('{reading_id}', '{longitude}', '{latitude}')
     """
     send_request(query)
