@@ -31,10 +31,11 @@ async def register_reading(file: List[UploadFile], imp_name:str = Form(), long:s
     read_id = shortuuid.uuid()
     user_id = token.get('user_id')
     insert_reading(read_id,user_id=user_id,cnn_id=imp_name)
-    if not long:
+    if long:
         insert_reading_location(reading_id=read_id,longitude=long,latitude=lat)
     for index, imgs in enumerate(file):
-        img_path = upload_img(imgs,read_id,index,imp_name)
+        contents = await imgs.read()
+        img_path = upload_img(contents,read_id,index,imp_name)
         insert_imgs(read_id, img_path)
     return {"Message": "Sucess"}
 

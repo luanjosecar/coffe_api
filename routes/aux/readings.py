@@ -3,6 +3,9 @@ from datetime import datetime
 from .responses import *
 import os
 from dotenv import load_dotenv
+from google.cloud import storage
+
+load_dotenv()
 
 def get_readings(user_id:str):
     query = f"select read_id, read_imp, read_date, read_status from readings where user_id = '{user_id}'"
@@ -16,21 +19,23 @@ def get_readings(user_id:str):
 
 # Definir banco de dados no qual ela seram colocadas
 def upload_img(image_data, reading_id, index, img_type):
-    load_dotenv()
+
     bucket = os.getenv('BUCKETNAME')
-    project_id = os,getenv('PROJECTID')
-    image_path = img_type + '/' + reading_id + str(index) + ".jpg"
+    project_id = os.getenv('PROJECTID')
+    image_path = img_type + '/' + reading_id + str(index) + ".jpeg"
     
     client = storage.Client(project_id)
     bucket = client.get_bucket(bucket)
+   
     blob = bucket.blob(image_path)
-    blob.upload_from_string(image_data)
+    blob.content_type = "image/jpeg"
+    blob.upload_from_string(image_data, content_type="image/jpeg")
     return image_path
 
 # Metodo para inserção de leituras dentro do sistema
 def insert_reading(reading_id:str, user_id:str, cnn_id:str):
     query = f"""
-        INSERT INTO reading_history (reading_id,user_id,cnn_id,reading_date, reading_status)
+        INSERT INTO readings (read_id,user_id,read_imp,read_date, read_status)
         VALUES ('{reading_id}', '{user_id}', '{cnn_id}', '{datetime.now()}', False)
     """
     send_request(query)
@@ -38,7 +43,6 @@ def insert_reading(reading_id:str, user_id:str, cnn_id:str):
     
 # insere imagens para validação
 def insert_imgs(reading_id: str, image_dir:str):
-    load_dotenv()
     bucket = os.getenv('BUCKETNAME')
     image_path = f"https://storage.googleapis.com/{bucket}/{image_dir}"
     query = f"""
