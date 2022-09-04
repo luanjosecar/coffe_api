@@ -1,9 +1,10 @@
 from fastapi import Depends, FastAPI
 from fastapi.openapi.utils import get_openapi
-#from routes.aux.dependencies import verify_token
 from routes import users, readings, implementations
 from fastapi.middleware.cors import CORSMiddleware
 
+from initializer.postgres import create_databases
+from initializer.mongo import create_mongo
 app = FastAPI()
 
 def custom_openapi():
@@ -32,6 +33,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("startup")
+async def start_databases():
+    create_databases()
+    create_mongo()
 
 app.include_router(users.router)
 app.include_router(readings.router)

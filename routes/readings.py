@@ -4,8 +4,8 @@ from typing import List
 import json
 import shortuuid
 
-from .aux.dependencies import verify_token
-from .aux.readings import *
+from .utils.dependencies import verify_token
+from .utils.readings import *
 
 router = APIRouter(
     prefix="/readings",
