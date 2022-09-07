@@ -40,11 +40,11 @@ def send_request(query:str):
 def get_request(query):
     try:
         # Connect to an existing database
-        connection = psycopg2.connect(user="postgres",
-                                    password="example",
-                                    host="0.0.0.0",
-                                    port="5432",
-                                    database="postgres")
+        connection = psycopg2.connect(user=PSQL_USER,
+                                    password=PSQL_PSWD,
+                                    host=PSQL_HOST,
+                                    port=PSQL_PORT,
+                                    database=PSQL_DATABASE)
 
         # Create a cursor to perform database operations
         cursor = connection.cursor()
@@ -58,7 +58,6 @@ def get_request(query):
     except (Exception, Error) as error:
         print("Error while connecting to PostgreSQL :", error)
         record = []
-
     finally:
         if (connection):
             cursor.close()
