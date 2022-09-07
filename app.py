@@ -11,7 +11,7 @@ def custom_openapi():
     if app.openapi_schema:
         return app.openapi_schema
     openapi_schema = get_openapi(
-        title="Coffy PWA API",
+        title="Coffe PWA API",
         version="0.1.0",
         description="API para manipulação das ações dentro do sistema",
         contact={

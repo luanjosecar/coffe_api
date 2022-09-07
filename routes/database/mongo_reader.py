@@ -1,10 +1,13 @@
 from pymongo import MongoClient, errors
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
-DOMAIN = '127.0.0.1'
-PORT = 27017
-MONGOUSER = 'root'
-MONGPWD = 'example'
+DOMAIN = os.getenv('MONGO_DOMAIN')
+PORT = os.getenv('MONGO_PORT')
+MONGOUSER = os.getenv('MONGO_USER')
+MONGPWD = os.getenv('MONGO_PSWD')
 
 
 def conect_mong():
