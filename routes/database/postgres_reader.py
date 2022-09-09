@@ -30,7 +30,7 @@ def send_request(query:str):
 
     except (Exception, Error) as error:
         print("Error while connecting to PostgreSQL :", error)
-    finally:
+    else:
         if (connection):
             cursor.close()
             connection.close()
@@ -58,7 +58,7 @@ def get_request(query):
     except (Exception, Error) as error:
         print("Error while connecting to PostgreSQL :", error)
         record = []
-    finally:
+    else:
         if (connection):
             cursor.close()
             connection.close()

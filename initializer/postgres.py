@@ -29,7 +29,7 @@ def create_databases():
 
     except (Exception, Error) as error:
         print("Error while connecting to PostgreSQL :", error)
-    finally:
+    else:
         if (connection):
             print("POSTGRES - Tables Created")
             cursor.close()

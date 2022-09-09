@@ -15,7 +15,7 @@ create table if not exists reading_location
 create table if not exists readings
 (
     read_id varchar,
-    user_id varhcar,
+    user_id varchar,
     read_imp varchar,
     read_date timestamp,
     read_status boolean,

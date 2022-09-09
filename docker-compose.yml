@@ -40,7 +40,7 @@ services:
       - 8080:8080
 
   api:
-    image: luanjosecar/coffe_api
+    build: luanjosecar/coffe_api
     ports:
       - "8000:8000"
     environment:
