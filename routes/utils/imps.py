@@ -13,7 +13,7 @@ def get_implementations():
     resp = get_request(query)
     imp_list = []
     for iid ,idname, istatus,iimgs, itype in resp:
-        imp_dict = {"imp_id": iid, "imp_name" : idname, "images" : iimgs, "type":itype }
+        imp_dict = {"imp_id": iid, "imp_name" : idname, "images" : iimgs, "desc":itype }
         imp_list.append(imp_dict)
     print(imp_list)
-    return imp_list
+    return imp_list 
