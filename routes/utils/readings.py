@@ -4,6 +4,7 @@ from .responses import *
 import os
 from dotenv import load_dotenv
 from google.cloud import storage
+from google.oauth2 import service_account
 
 load_dotenv()
 
@@ -19,7 +20,8 @@ def get_readings(user_id:str):
 
 # Definir banco de dados no qual ela seram colocadas
 def upload_img(image_data, reading_id, index, img_type):
-
+    credentials = service_account.Credentials.from_service_account_file(
+        'gcp_key.json')
     bucket = os.getenv('BUCKETNAME')
     project_id = os.getenv('PROJECTID')
     image_path = img_type + '/' + reading_id + str(index) + ".jpeg"

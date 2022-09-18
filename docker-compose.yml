@@ -40,23 +40,41 @@ services:
     ports:
       - 8080:8080
 
-  # api:
-  #   build: luanjosecar/coffe_api
-  #   ports:
-  #     - "8000:8000"
-  #   environment:
-  #     PSQL_HOST: db
-  #     BUCKETNAME: tg_pwa_coffe
-  #     PROJECTID: dark-rarity-325918
-  #     MONGO_DOMAIN: mongo
-  #     MONGO_PORT: 27017
-  #     MONGO_USER: root
-  #     MONGO_PSWD: example
-  #     PSQL_USER: postgres
-  #     PSQL_PSWD: example
-  #     PSQL_PORT: 5432
-  #     PSQL_DATABASE: postgres
+  api:
+    image: luanjosecar/coffe_api
+    ports:
+      - "8000:8000"
+    environment:
+      PSQL_HOST: db
+      BUCKETNAME: tg_pwa_coffe
+      PROJECTID: dark-rarity-325918
+      MONGO_DOMAIN: mongo
+      MONGO_PORT: 27017
+      MONGO_USER: root
+      MONGO_PSWD: example
+      PSQL_USER: postgres
+      PSQL_PSWD: example
+      PSQL_PORT: 5432
+      PSQL_DATABASE: postgres
+      GOOGLE_APPLICATION_CREDENTIALS : /code/gcp_key.json
+    depends_on:
+      - db
+      - mongo
       
+    
+  coffe-base:
+    image: luanjosecar/analise_lara
+    environment:
+      PSQL_HOST: db
+      PSQL_USER: postgres
+      PSQL_PSWD: example
+      PSQL_PORT: 5432
+      PSQL_DATABASE: postgres
+      IMP_NAME: lara_multitask
+      PYTHONUNBUFFERED: 1
+    depends_on:
+      - api
+
 volumes:
   db-data:
     driver: local

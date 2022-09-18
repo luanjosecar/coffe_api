@@ -29,7 +29,7 @@ def create_file(self, filename, content_type):
   write_retry_params = gcs.RetryParams(backoff_factor=1.1)
   gcs_file = gcs.open(filename,
                       'w',
-                      content_type='text/plain',
+                      content_type='image/jpeg',
                       options={'x-goog-meta-foo': 'foo',
                                'x-goog-meta-bar': 'bar'},
                       retry_params=write_retry_params)
