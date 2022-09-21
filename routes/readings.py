@@ -52,7 +52,7 @@ async def register_reading(file: List[UploadFile], imp_name:str = Form(), long:s
     return {"Message": "Sucess", "Reading": read_id}
 
 
-@router.post("register_paths/{reading_id}")
+@router.post("/register_paths/{reading_id}")
 async def register_image_paths(paths :Image_location = Body(
     examples = {
         "normal":{

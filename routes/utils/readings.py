@@ -13,7 +13,7 @@ def get_readings(user_id:str):
     resp = get_request(query)
     base_list = []
     for rid, rimp, rdate, rstate in resp:
-        resp_dict = {"read_id" : rid, "read_imp":rimp, "read_date":rdate.strftime('%y-%m-%d')}
+        resp_dict = {"read_id" : rid, "read_imp":rimp, "read_date":rdate.strftime('%y-%m-%d'), "read_status":rstate}
         base_list.append(resp_dict)
     return base_list
 
